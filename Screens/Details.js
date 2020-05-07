@@ -25,7 +25,7 @@ export default class Details extends React.Component {
             {this.api.flatDate.map(i => {
               if (i !== undefined) {
                 return (
-                  <Text>
+                  <Text key={i.date_value}>
                     {i.date_value} {i.confirmed}
                   </Text>
                 );

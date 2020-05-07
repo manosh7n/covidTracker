@@ -24,13 +24,17 @@ export default class GetApi {
   }
 
   async getData() {
-    console.log('getData(0)');
-    var response = await fetch(this.url);
-    console.log('getData(1)');
-    var json = await response.json();
-    console.log('getData(2)');
-    this.state = {json: json.data};
-    console.log('getData(3)');
+    try {
+      console.log('getData(0)');
+      var response = await fetch(this.url);
+      console.log('getData(1)');
+      var json = await response.json();
+      console.log('getData(2)');
+      this.state = {json: json.data};
+      console.log('getData(3)');
+    } catch (error) {
+      alert('Error in getData() : ' + error);
+    }
   }
 
   async flat(country) {
