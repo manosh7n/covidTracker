@@ -15,6 +15,7 @@ const StackNavigation = () => {
           name="HomeScreen"
           component={HomeScreen}
           options={{headerShown: false}}
+          initialParams={{country: 'RUS'}}
         />
         <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>
