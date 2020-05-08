@@ -19,7 +19,7 @@ const StackNavigation = () => {
             title: 'Covid Tracker',
             color: 'white',
             headerStyle: {
-              backgroundColor: '#2964df',
+              backgroundColor: '#2683c9',
             },
             headerTitleStyle: {
               fontWeight: 'bold',
@@ -30,10 +30,25 @@ const StackNavigation = () => {
             headerTitleAlign: 'center',
           }}
         />
-        <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen
+          name="Details"
+          component={Details}
+          options={{
+            title: 'Details',
+            color: 'white',
+            headerStyle: {
+              backgroundColor: '#2683c9',
+            },
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              color: 'white',
+              fontFamily: 'Quantico',
+              fontSize: 20,
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default StackNavigation;
