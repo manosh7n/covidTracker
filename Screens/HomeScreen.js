@@ -2,11 +2,12 @@ import 'react-native-gesture-handler';
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-community/picker';
+import {ActivityIndicator, Colors} from 'react-native-paper';
 
 import {Countries} from '../Components/Countries';
 import {ScrollView} from 'react-native-gesture-handler';
 import HomeScreenNumbers from '../Components/HomeScreenNumbers';
-import {ActivityIndicator, Colors} from 'react-native-paper';
+import Graphics from '../Components/Graphics';
 
 export default class HomeScreen extends Component {
   state = {
@@ -49,12 +50,40 @@ export default class HomeScreen extends Component {
           </View>
 
           {this.state.isUpdate !== true && (
-            <>
+            <ScrollView>
               <HomeScreenNumbers
                 api={this.state.api.data}
                 country={this.state.country}
               />
-            </>
+              <Text style={styles.textGraph}>
+                The number of confirmed cases by day
+              </Text>
+              <ScrollView
+                horizontal
+                ref="scrollView2"
+                onContentSizeChange={(width, height) =>
+                  this.refs.scrollView2.scrollTo({x: width})
+                }>
+                <Graphics
+                  api={this.state.api.data}
+                  country={this.state.country}
+                  type={'confirmed'}
+                />
+              </ScrollView>
+              <Text style={styles.textGraph}>The number of deaths by day</Text>
+              <ScrollView
+                horizontal
+                ref="scrollView"
+                onContentSizeChange={(width, height) =>
+                  this.refs.scrollView.scrollTo({x: width})
+                }>
+                <Graphics
+                  api={this.state.api.data}
+                  country={this.state.country}
+                  type={'deaths'}
+                />
+              </ScrollView>
+            </ScrollView>
           )}
 
           {this.state.isUpdate && (
@@ -127,6 +156,13 @@ const styles = StyleSheet.create({
   textStats: {
     fontSize: 26,
     color: 'black',
+    fontWeight: 'bold',
+  },
+
+  //text gtaph
+  textGraph: {
+    fontSize: 20,
+    textAlign: 'center',
     fontWeight: 'bold',
   },
 
