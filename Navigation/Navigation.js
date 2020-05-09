@@ -5,6 +5,8 @@ import HomeScreen from '../Screens/HomeScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+import GetApi from '../Components/GetApi';
+
 const Stack = createStackNavigator();
 
 const StackNavigation = () => {
@@ -14,7 +16,11 @@ const StackNavigation = () => {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          initialParams={{country: 'RUS'}}
+          initialParams={{
+            country: 'Russia',
+            isUpdate: true,
+            api: new GetApi(),
+          }}
           options={{
             title: 'Covid Tracker',
             color: 'white',

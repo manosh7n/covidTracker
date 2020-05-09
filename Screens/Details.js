@@ -1,26 +1,9 @@
-import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, {Component} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 
-import GetApi from '../Components/GetApi';
-import {ActivityIndicator, Colors} from 'react-native-paper';
-
-export default class Details extends React.Component {
-  api = new GetApi();
-  isEnter = true;
-
-  async buildList() {
-    await this.api.getData();
-    await this.api.flat(this.props.route.params.country);
-    this.isEnter = false;
-    this.forceUpdate();
-  }
-
+export default class Details extends Component {
   render() {
-    if (this.isEnter) {
-      this.buildList();
-    }
-
     return (
       <View style={styles.container}>
         <View style={styles.containerScroll}>
@@ -28,38 +11,29 @@ export default class Details extends React.Component {
             <Text style={styles.textHeader}>Date</Text>
             <Text style={styles.textHeader}>Confirmed</Text>
             <Text style={styles.textHeader}>Deaths</Text>
+            <Text style={styles.textHeader}>Recovered</Text>
+            <Text style={styles.textHeader}>Active</Text>
           </View>
-
-          <ActivityIndicator
-            animating={this.isEnter}
-            color={Colors.red800}
-            hidesWhenStopped={true}
-            size={55}
-            style={{flex: 1}}
+          <FlatList
+            data={this.props.route.params.api.json[
+              this.props.route.params.country
+            ]
+              .slice()
+              .reverse()}
+            renderItem={({item, index}) => (
+              <View style={styles.scroll}>
+                <Text style={styles.textList}>{item.date}</Text>
+                <Text style={styles.textList}>{item.confirmed}</Text>
+                <Text style={styles.textList}>{item.deaths}</Text>
+                <Text style={styles.textList}>{item.recovered}</Text>
+                <Text style={styles.textList}>
+                  {item.confirmed - item.deaths - item.recovered}
+                </Text>
+              </View>
+            )}
+            keyExtractor={i => i.date}
+            initialNumToRender={120}
           />
-
-          <ScrollView>
-            {this.api.flatDate
-              .slice(0)
-              .reverse()
-              .map(i => {
-                if (i !== undefined) {
-                  return (
-                    <View style={styles.scroll}>
-                      <Text style={styles.textList} key={i.date_value}>
-                        {i.date_value}
-                      </Text>
-                      <Text style={styles.textList} key={i.date_value}>
-                        {i.confirmed}
-                      </Text>
-                      <Text style={styles.textList} key={i.date_value}>
-                        {i.deaths}
-                      </Text>
-                    </View>
-                  );
-                }
-              })}
-          </ScrollView>
         </View>
       </View>
     );
@@ -85,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textHeader: {
-    fontSize: 22,
+    fontSize: 16,
     flex: 1,
     textAlign: 'center',
   },
@@ -101,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textList: {
-    fontSize: 20,
+    fontSize: 16,
     flex: 1,
     textAlign: 'center',
   },
