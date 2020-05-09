@@ -42,6 +42,7 @@ const StackNavigation = () => {
           options={{
             title: 'Details',
             color: 'white',
+            headerTintColor: 'white',
             headerStyle: {
               backgroundColor: '#2683c9',
             },

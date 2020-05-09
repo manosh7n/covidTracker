@@ -10,9 +10,9 @@ export default class Details extends Component {
           <View style={styles.viewHead}>
             <Text style={styles.textHeader}>Date</Text>
             <Text style={styles.textHeader}>Confirmed</Text>
-            <Text style={styles.textHeader}>Deaths</Text>
+            <Text style={styles.textHeader}>Infected</Text>
             <Text style={styles.textHeader}>Recovered</Text>
-            <Text style={styles.textHeader}>Active</Text>
+            <Text style={styles.textHeader}>Deaths</Text>
           </View>
           <FlatList
             data={this.props.route.params.api.json[
@@ -24,10 +24,14 @@ export default class Details extends Component {
               <View style={styles.scroll}>
                 <Text style={styles.textList}>{item.date}</Text>
                 <Text style={styles.textList}>{item.confirmed}</Text>
-                <Text style={styles.textList}>{item.deaths}</Text>
-                <Text style={styles.textList}>{item.recovered}</Text>
                 <Text style={styles.textList}>
                   {item.confirmed - item.deaths - item.recovered}
+                </Text>
+                <Text style={[styles.textList, {color: '#53D594'}]}>
+                  {item.recovered}
+                </Text>
+                <Text style={[styles.textList, {color: '#D90F27'}]}>
+                  {item.deaths}
                 </Text>
               </View>
             )}
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textList: {
-    fontSize: 16,
+    fontSize: 17,
     flex: 1,
     textAlign: 'center',
   },
