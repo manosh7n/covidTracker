@@ -8,7 +8,7 @@ import {Countries} from '../Components/Countries';
 import {ScrollView} from 'react-native-gesture-handler';
 import HomeScreenNumbers from '../Components/HomeScreenNumbers';
 import Graphics from '../Components/Graphics';
-
+import FlashMessage from 'react-native-flash-message';
 export default class HomeScreen extends Component {
   state = {
     country: this.props.route.params.country,
@@ -65,6 +65,7 @@ export default class HomeScreen extends Component {
                   api={this.state.api.data}
                   country={this.state.country}
                 />
+
                 <Text style={styles.textGraph}>
                   The number of confirmed cases by day
                 </Text>
@@ -123,11 +124,17 @@ export default class HomeScreen extends Component {
               animating={this.state.isLoad}
               color={Colors.blue400}
               hidesWhenStopped={true}
-              size={120}
+              size={100}
               style={{flex: 1}}
             />
           )}
         </View>
+
+        <FlashMessage
+          position="bottom"
+          titleStyle={{fontSize: 16, fontWeight: 'bold'}}
+          hideStatusBar={false}
+        />
       </>
     );
   }
