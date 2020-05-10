@@ -19,6 +19,7 @@ const StackNavigation = () => {
           initialParams={{
             country: 'Russia',
             isUpdate: true,
+            isLoad: true,
             api: new GetApi(),
           }}
           options={{

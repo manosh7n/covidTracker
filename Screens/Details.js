@@ -43,6 +43,7 @@ export default class Details extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 
+  //header text
   viewHead: {
     paddingRight: 15,
     paddingTop: 10,
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  //list text
   scroll: {
     flex: 1,
     paddingRight: 15,

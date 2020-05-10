@@ -13,7 +13,7 @@ function HomeScreenNumbers(props) {
               ].confirmed
             }
           </Text>
-          <Text style={styles.textStats}>Confirmed</Text>
+          <Text style={[styles.textStats, {marginBottom: 10}]}>Confirmed</Text>
         </View>
         <View style={styles.homeStats}>
           <Text style={[styles.textNum, {color: '#D90F27'}]}>
@@ -39,7 +39,7 @@ function HomeScreenNumbers(props) {
               props.api.json[props.country].length - 1
             ].recovered}
         </Text>
-        <Text style={styles.textStats}>Infected</Text>
+        <Text style={[styles.textStats, {marginBottom: 10}]}>Infected</Text>
         <View style={styles.homeStats}>
           <Text style={[styles.textNum, {color: '#53D594'}]}>
             {

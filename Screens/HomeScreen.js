@@ -14,18 +14,26 @@ export default class HomeScreen extends Component {
     country: this.props.route.params.country,
     api: this.props.route.params.api,
     isUpdate: this.props.route.params.isUpdate,
+    isLoad: this.props.route.params.isLoad,
   };
 
   async build() {
     await this.state.api.getData();
     this.setState({
       isUpdate: false,
+      isLoad: false,
     });
   }
 
   render() {
     if (this.state.isUpdate) {
       this.build();
+    }
+
+    if (this.state.isLoad && this.state.isUpdate === false) {
+      window.setTimeout(() => {
+        this.setState({isLoad: false});
+      }, 1);
     }
 
     return (
@@ -36,11 +44,12 @@ export default class HomeScreen extends Component {
             <Picker
               selectedValue={this.state.country}
               style={styles.picker}
-              enabled={!this.state.isUpdate}
+              enabled={!this.state.isLoad}
               mode={'dropdown'}
               onValueChange={(itemValue, itemIndex) => {
                 this.setState({
                   country: itemValue,
+                  isLoad: true,
                 });
               }}>
               {Object.values(Countries).map(i => {
@@ -49,72 +58,75 @@ export default class HomeScreen extends Component {
             </Picker>
           </View>
 
-          {this.state.isUpdate !== true && (
-            <ScrollView>
-              <HomeScreenNumbers
-                api={this.state.api.data}
-                country={this.state.country}
-              />
-              <Text style={styles.textGraph}>
-                The number of confirmed cases by day
-              </Text>
-              <ScrollView
-                horizontal
-                ref="scrollView2"
-                onContentSizeChange={(width, height) =>
-                  this.refs.scrollView2.scrollTo({x: width})
-                }>
-                <Graphics
+          {this.state.isLoad !== true && (
+            <>
+              <ScrollView>
+                <HomeScreenNumbers
                   api={this.state.api.data}
                   country={this.state.country}
-                  type={'confirmed'}
                 />
+                <Text style={styles.textGraph}>
+                  The number of confirmed cases by day
+                </Text>
+                <ScrollView
+                  horizontal
+                  ref="scrollView2"
+                  onContentSizeChange={(width, height) =>
+                    this.refs.scrollView2.scrollTo({
+                      x: width,
+                    })
+                  }>
+                  <Graphics
+                    data={this.state.api.confirmed.get(this.state.country)}
+                    dates={this.state.api.date.get(this.state.country)}
+                    type={'confirmed'}
+                  />
+                </ScrollView>
+                <Text style={styles.textGraph}>
+                  The number of deaths by day
+                </Text>
+                <ScrollView
+                  horizontal
+                  style={{marginBottom: 40}}
+                  ref="scrollView"
+                  onContentSizeChange={(width, height) =>
+                    this.refs.scrollView.scrollTo({
+                      x: width,
+                    })
+                  }>
+                  <Graphics
+                    data={this.state.api.deaths.get(this.state.country)}
+                    dates={this.state.api.date.get(this.state.country)}
+                    type={'deaths'}
+                  />
+                </ScrollView>
               </ScrollView>
-              <Text style={styles.textGraph}>The number of deaths by day</Text>
-              <ScrollView
-                horizontal
-                ref="scrollView"
-                onContentSizeChange={(width, height) =>
-                  this.refs.scrollView.scrollTo({x: width})
-                }>
-                <Graphics
-                  api={this.state.api.data}
-                  country={this.state.country}
-                  type={'deaths'}
-                />
-              </ScrollView>
-            </ScrollView>
+
+              <View style={{backgroundColor: 'white'}}>
+                <TouchableOpacity
+                  style={styles.button}
+                  activeOpacity={0.6}
+                  onPress={async () => {
+                    this.props.navigation.navigate('Details', {
+                      country: this.state.country,
+                      api: this.state.api.data,
+                    });
+                  }}>
+                  <Text style={styles.buttonText}>Details</Text>
+                </TouchableOpacity>
+              </View>
+            </>
           )}
 
-          {this.state.isUpdate && (
+          {this.state.isLoad && (
             <ActivityIndicator
-              animating={this.state.isUpdate}
+              animating={this.state.isLoad}
               color={Colors.blue400}
               hidesWhenStopped={true}
-              size={100}
+              size={120}
               style={{flex: 1}}
             />
           )}
-        </View>
-
-        <View style={{backgroundColor: 'white'}}>
-          <TouchableOpacity
-            style={styles.button}
-            activeOpacity={0.6}
-            onPress={async () => {
-              this.props.navigation.navigate('Details', {
-                country: this.state.country,
-                api: this.state.api.data,
-              });
-            }}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: 'white',
-              }}>
-              Details
-            </Text>
-          </TouchableOpacity>
         </View>
       </>
     );
@@ -176,5 +188,10 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 10,
     marginBottom: 10,
+  },
+
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
   },
 });

@@ -1,43 +1,24 @@
 import React, {Component} from 'react';
 import {LineChart} from 'react-native-chart-kit';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 export default class Graphics extends Component {
-  dates = [];
-  value = [];
-
-  get() {
-    this.dates = [];
-    this.value = [];
-    if (this.props.type === 'deaths') {
-      this.props.api.json[this.props.country].forEach(i => {
-        this.dates.push(i.date);
-        this.value.push(i.deaths);
-      });
-    } else {
-      this.props.api.json[this.props.country].forEach(i => {
-        this.dates.push(i.date);
-        this.value.push(i.confirmed);
-      });
-    }
-  }
-
   render() {
-    this.get();
     return (
       <View>
         <LineChart
           data={{
-            labels: this.dates,
+            labels: this.props.dates,
             datasets: [
               {
-                data: this.value,
+                data: this.props.data,
               },
             ],
           }}
           width={5500}
           height={300}
-          onDataPointClick={({value, labels, getColor}) => snack}
+          onDataPointClick={() => ({value, labels, getColor}) => {}}
           verticalLabelRotation={55}
           segments={7}
           xLabelsOffset={-15}
