@@ -56,29 +56,32 @@ const styles = StyleSheet.create({
 
   //header text
   viewHead: {
-    paddingRight: 15,
+    //paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 0.5,
     borderColor: '#c9c9c9',
     flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   textHeader: {
     fontSize: 16,
     flex: 1,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 
   //list text
   scroll: {
     flex: 1,
-    paddingRight: 15,
+    //paddingRight: 15,
     paddingTop: 8,
     paddingBottom: 8,
     borderBottomWidth: 0.5,
     borderColor: '#c9c9c9',
     flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   textList: {

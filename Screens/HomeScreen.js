@@ -122,9 +122,9 @@ export default class HomeScreen extends Component {
           {this.state.isLoad && (
             <ActivityIndicator
               animating={this.state.isLoad}
-              color={Colors.blue400}
+              color={'#2683c9'}
               hidesWhenStopped={true}
-              size={100}
+              size={110}
               style={{flex: 1}}
             />
           )}
@@ -132,7 +132,8 @@ export default class HomeScreen extends Component {
 
         <FlashMessage
           position="bottom"
-          titleStyle={{fontSize: 16, fontWeight: 'bold'}}
+          style={{borderRadius: 20}}
+          titleStyle={styles.textFlash}
           hideStatusBar={false}
         />
       </>
@@ -152,8 +153,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'row',
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
     borderRadius: 15,
   },
   picker: {
@@ -200,5 +201,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: 'white',
+  },
+
+  //flash message
+  textFlash: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

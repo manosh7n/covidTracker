@@ -23,7 +23,7 @@ const StackNavigation = () => {
             api: new GetApi(),
           }}
           options={{
-            title: 'Covid Tracker',
+            title: 'Covid-19 Tracker',
             color: 'white',
             headerStyle: {
               backgroundColor: '#2683c9',

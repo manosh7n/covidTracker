@@ -49,7 +49,7 @@ export default class Graphics extends Component {
               color: (opacity = 1) =>
                 this.props.type === 'deaths'
                   ? `rgba(217, 15, 51, ${opacity})`
-                  : `rgba(15, 115, 222, ${opacity})`,
+                  : `rgba(38, 131, 201, ${opacity})`,
               labelColor: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
               propsForBackgroundLines: {
                 strokeDasharray: '5',
